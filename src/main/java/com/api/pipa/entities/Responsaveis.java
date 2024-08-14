@@ -2,10 +2,7 @@ package com.api.pipa.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +10,7 @@ import java.util.Set;
 @Table(name = "responsaveis")
 @Entity(name =  "Responsavel")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,12 +19,18 @@ public class Responsaveis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, length = 11)
     private String cpf;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
-    private Set<Alunos> alunos = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Enderecos endereco;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        @OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
+    private Set<Alunos> alunos = new HashSet<>();
 
 }
