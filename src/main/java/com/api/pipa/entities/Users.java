@@ -16,8 +16,11 @@ public class Users {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
-    private String password;
+    private String nome;
+    private String senha;
     private boolean isAdmin;
+    private boolean isProfessor;
+    private boolean isResponsavel;
 
 
 }

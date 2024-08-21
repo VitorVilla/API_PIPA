@@ -1,9 +1,8 @@
 package com.api.pipa.controllers;
 
-
-import com.api.pipa.dtos.ResponsavelRecordDto;
-import com.api.pipa.entities.Responsaveis;
-import com.api.pipa.services.ResponsavelService;
+import com.api.pipa.dtos.UserRecordDto;
+import com.api.pipa.entities.Users;
+import com.api.pipa.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/responsavel")
-public class ResponsavelController {
+@RequestMapping("/user")
+public class AdminController {
 
     @Autowired
-    private ResponsavelService responsavelService;
+    private UserService userService;
 
     @PostMapping
-    public ResponseEntity<Responsaveis> saveResponsavel (@RequestBody @Valid ResponsavelRecordDto ResponsavelRecordDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(responsavelService.saveResposavel(ResponsavelRecordDto));
+    public ResponseEntity<Users> saveUser (@RequestBody @Valid UserRecordDto userRecordDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userRecordDto));
     }
 }

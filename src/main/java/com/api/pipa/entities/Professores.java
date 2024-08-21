@@ -1,20 +1,16 @@
 package com.api.pipa.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Table(name = "responsaveis")
-@Entity(name = "Responsavel")
+@Table(name = "professores")
+@Entity(name = "Professor")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Responsaveis {
+public class Professores {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,17 +25,7 @@ public class Responsaveis {
     @Column(nullable = false, length = 100)
     private String senha;
 
-    @Column(nullable = false, length = 11)
-    private String cpf;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Enderecos endereco;
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Users user;
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
-    private Set<Alunos> alunos = new HashSet<>();
 
 }
