@@ -29,7 +29,7 @@ public class UserService {
         user.setSenha(userRecordDto.senha());
         user.setEmail(userRecordDto.email());
         user.setNome(userRecordDto.nome());
-
+        usersRepository.save(user);
 
         if (userRecordDto.isAdmin()){
 

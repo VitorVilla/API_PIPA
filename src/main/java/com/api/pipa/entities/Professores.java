@@ -26,6 +26,7 @@ public class Professores {
     private String senha;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     private Users user;
 
 }

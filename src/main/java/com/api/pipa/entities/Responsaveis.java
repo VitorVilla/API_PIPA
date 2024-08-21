@@ -36,6 +36,7 @@ public class Responsaveis {
     private Enderecos endereco;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     private Users user;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

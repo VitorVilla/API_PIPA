@@ -1,48 +1,46 @@
 CREATE TABLE users
 (
-    id            SERIAL PRIMARY KEY,
-    nome          VARCHAR(100) NOT NULL,
-    email         VARCHAR(100) NOT NULL UNIQUE,
-    senha         VARCHAR(255) NOT NULL,
-    isProfessor   boolean DEFAULT false,
-    isResponsavel boolean DEFAULT false,
-    isAdmin       boolean DEFAULT false
+    id             BIGSERIAL PRIMARY KEY,
+    nome           VARCHAR(100) NOT NULL,
+    email          VARCHAR(100) NOT NULL UNIQUE,
+    senha          VARCHAR(255) NOT NULL,
+    is_professor   BOOLEAN DEFAULT false,
+    is_responsavel BOOLEAN DEFAULT false,
+    is_admin       BOOLEAN DEFAULT false
 );
 
 CREATE TABLE professores
 (
-    id         SERIAL PRIMARY KEY,
+    id         BIGSERIAL PRIMARY KEY,
     nome       VARCHAR(100) NOT NULL,
     email      VARCHAR(100) NOT NULL UNIQUE,
     senha      VARCHAR(255) NOT NULL,
-    id_usuario INT REFERENCES users (id)
+    id_usuario INT,
+
+    CONSTRAINT fk_usuario_professor FOREIGN KEY (id_usuario) REFERENCES users (id)
 );
 
 CREATE TABLE responsaveis
 (
-    id         SERIAL PRIMARY KEY,
+    id         BIGSERIAL PRIMARY KEY,
     cpf        VARCHAR(11)  NOT NULL UNIQUE,
     nome       VARCHAR(100) NOT NULL,
     email      VARCHAR(100) NOT NULL UNIQUE,
     senha      VARCHAR(255) NOT NULL,
-    id_usuario INT REFERENCES users (id)
+    id_usuario INT,
+
+    CONSTRAINT fk_usuario_responsavel FOREIGN KEY (id_usuario) REFERENCES users (id)
 );
 
 CREATE TABLE admins
 (
-    id         SERIAL PRIMARY KEY,
+    id         BIGSERIAL PRIMARY KEY,
     nome       VARCHAR(100) NOT NULL,
     email      VARCHAR(100) NOT NULL UNIQUE,
     senha      VARCHAR(255) NOT NULL,
-    id_usuario INT REFERENCES users (id)
-);
+    id_usuario INT,
 
-CREATE TABLE salas
-(
-    id           SERIAL PRIMARY KEY,
-    nome         VARCHAR(100) NOT NULL,
-    id_professor INT REFERENCES professores (id),
-    id_aluno     INT REFERENCES alunos (id)
+    CONSTRAINT fk_usuario_admin FOREIGN KEY (id_usuario) REFERENCES users (id)
 );
 
 CREATE TABLE alunos
@@ -53,6 +51,17 @@ CREATE TABLE alunos
     responsavel_id BIGINT       NOT NULL,
 
     CONSTRAINT fk_responsavel FOREIGN KEY (responsavel_id) REFERENCES responsaveis (id)
+);
+
+CREATE TABLE salas
+(
+    id           BIGSERIAL PRIMARY KEY,
+    nome         VARCHAR(100) NOT NULL,
+    id_aluno     BIGINT,
+    id_professor BIGINT,
+
+    CONSTRAINT fk_alunos FOREIGN KEY (id_aluno) REFERENCES alunos (id),
+    CONSTRAINT fk_professores FOREIGN KEY (id_professor) REFERENCES professores (id)
 );
 
 CREATE TABLE tags

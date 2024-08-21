@@ -25,6 +25,7 @@ public class Admins {
     @Column(nullable = false, length = 100)
     private String senha;
 
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Users user;
 
