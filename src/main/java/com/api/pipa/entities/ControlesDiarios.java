@@ -32,8 +32,6 @@ public class ControlesDiarios {
     private Time horario;
     private String dose;
     private double febre;
-    private String nome;
-    private String titulo;
 
     @ManyToOne
     Alunos aluno;

@@ -7,10 +7,9 @@ import com.api.pipa.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tags")
@@ -23,6 +22,18 @@ public class TagController {
     public ResponseEntity<Tags> saveTag(@RequestBody TagRecordDto tagRecordDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tagService.saveTag(tagRecordDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Tags>> getAllTag() {
+        return ResponseEntity.status(HttpStatus.OK).body(tagService.getAllTag());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTag(@PathVariable Long id) {
+        tagService.deleteTag(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Responsável deletado com sucesso!");
+
     }
 
 }

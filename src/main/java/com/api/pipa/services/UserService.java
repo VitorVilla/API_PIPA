@@ -6,9 +6,11 @@ import com.api.pipa.repositories.AdminsRepository;
 import com.api.pipa.repositories.ProfessoresRepository;
 import com.api.pipa.repositories.ResponsaveisRepository;
 import com.api.pipa.repositories.UsersRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -80,5 +82,14 @@ public class UserService {
 
         return usersRepository.save(user);
 
+    }
+
+    @Transactional
+    public void deleteUser(Long id){
+        usersRepository.deleteById(id);
+    }
+
+    public List<Users> getAllUser() {
+        return usersRepository.findAll();
     }
 }

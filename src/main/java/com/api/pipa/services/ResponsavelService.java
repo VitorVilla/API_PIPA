@@ -5,9 +5,11 @@ import com.api.pipa.entities.Enderecos;
 import com.api.pipa.entities.Responsaveis;
 import com.api.pipa.repositories.EnderecoRepository;
 import com.api.pipa.repositories.ResponsaveisRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ResponsavelService {
@@ -39,5 +41,14 @@ public class ResponsavelService {
 
         return responsaveisRepository.save(responsavel);
 
+    }
+
+    @Transactional
+    public void deleteResponsavel(Long id){
+        responsaveisRepository.deleteById(id);
+    }
+
+    public List<Responsaveis> getAllResponsavel() {
+        return responsaveisRepository.findAll();
     }
 }

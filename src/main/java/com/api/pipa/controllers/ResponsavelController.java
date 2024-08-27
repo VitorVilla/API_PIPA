@@ -8,10 +8,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/responsavel")
@@ -21,7 +20,19 @@ public class ResponsavelController {
     private ResponsavelService responsavelService;
 
     @PostMapping
-    public ResponseEntity<Responsaveis> saveResponsavel (@RequestBody @Valid ResponsavelRecordDto ResponsavelRecordDto) {
+    public ResponseEntity<Responsaveis> saveResponsavel(@RequestBody @Valid ResponsavelRecordDto ResponsavelRecordDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(responsavelService.saveResposavel(ResponsavelRecordDto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Responsaveis>> getAllResponsavel() {
+        return ResponseEntity.status(HttpStatus.OK).body(responsavelService.getAllResponsavel());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteResponsavel(@PathVariable Long id) {
+        responsavelService.deleteResponsavel(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Responsável deletado com sucesso!");
+
     }
 }

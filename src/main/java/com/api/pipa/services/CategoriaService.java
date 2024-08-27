@@ -1,6 +1,7 @@
 package com.api.pipa.services;
 
 import com.api.pipa.dtos.CategoriaRecordDto;
+import com.api.pipa.entities.Alunos;
 import com.api.pipa.entities.Categorias;
 import com.api.pipa.entities.Imagens;
 import com.api.pipa.repositories.CategoriasRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -44,5 +46,13 @@ public class CategoriaService {
         return categoriasRepository.save(categoria);
     }
 
+    @Transactional
+    public void deleteCategoria(Long id){
+        categoriasRepository.deleteById(id);
+    }
+
+    public List<Categorias> getAllCategorias() {
+        return categoriasRepository.findAll();
+    }
 
 }

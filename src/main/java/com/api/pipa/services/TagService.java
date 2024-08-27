@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TagService {
 
@@ -22,4 +24,12 @@ public class TagService {
         return tagsRepository.save(tags);
     }
 
+    @Transactional
+    public void deleteTag(Long id){
+        tagsRepository.deleteById(id);
+    }
+
+    public List<Tags> getAllTag() {
+        return tagsRepository.findAll();
+    }
 }

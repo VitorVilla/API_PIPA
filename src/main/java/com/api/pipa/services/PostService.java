@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -51,6 +52,15 @@ public class PostService {
         }
 
         return postsRepository.save(post);
+    }
+
+    @Transactional
+    public void deletePost(Long id){
+        postsRepository.deleteById(id);
+    }
+
+    public List<Posts> getAllPost() {
+        return postsRepository.findAll();
     }
 
 }
