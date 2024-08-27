@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlunosRepository extends JpaRepository <Alunos, Long> {
+
+    Alunos findAlunosByCpf(String cpf);
 }
