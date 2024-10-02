@@ -32,4 +32,8 @@ public class TagService {
     public List<Tags> getAllTag() {
         return tagsRepository.findAll();
     }
+
+    public Tags getTagById(Long id) {
+        return tagsRepository.findById(id).orElse(null);
+    }
 }

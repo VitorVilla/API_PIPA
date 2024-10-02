@@ -50,4 +50,8 @@ public class ControleDiarioService {
     public List<ControlesDiarios> getAllControleDiario() {
         return controlesDiariosRepository.findAll();
     }
+
+    public ControlesDiarios getControleDiarioById(Long id) {
+        return controlesDiariosRepository.findById(id).orElse(null);
+    }
 }

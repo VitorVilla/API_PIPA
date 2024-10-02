@@ -55,4 +55,7 @@ public class CategoriaService {
         return categoriasRepository.findAll();
     }
 
+    public Categorias getCategoriaById(Long id) {
+        return categoriasRepository.findById(id).orElse(null);
+    }
 }

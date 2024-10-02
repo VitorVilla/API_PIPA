@@ -30,6 +30,16 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPost());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Posts> getPostById(@PathVariable Long id) {
+        Posts post = postService.getPostById(id);
+        if (post != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(post);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePost(@PathVariable Long id) {
         postService.deletePost(id);

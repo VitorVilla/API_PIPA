@@ -28,6 +28,16 @@ public class ControleDiarioController {
         return ResponseEntity.status(HttpStatus.OK).body(controleDiarioService.getAllControleDiario());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ControlesDiarios> getControleDiarioById(@PathVariable Long id) {
+        ControlesDiarios controleDiario = controleDiarioService.getControleDiarioById(id);
+        if (controleDiario != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(controleDiario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteControleDiario(@PathVariable Long id) {
         controleDiarioService.deleteControleDiario(id);

@@ -40,4 +40,11 @@ public class AlunoService {
     public List<Alunos> getAllAlunos() {
         return alunosRepository.findAll();
     }
+
+    public Alunos getAluno(Long id) {
+        return alunosRepository.findById(id).get();
+    }
+
+
+
 }

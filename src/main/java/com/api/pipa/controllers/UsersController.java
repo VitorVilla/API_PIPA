@@ -18,6 +18,16 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
+        Users user = userService.getUserById(id);
+        if (user != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Users> saveUser (@RequestBody @Valid UserRecordDto userRecordDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(userRecordDto));

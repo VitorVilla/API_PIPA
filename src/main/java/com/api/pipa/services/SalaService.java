@@ -44,4 +44,7 @@ public class SalaService {
         return salasRepository.findAll();
     }
 
+    public Salas getSalaById(Long id) {
+        return salasRepository.findById(id).orElse(null);
+    }
 }

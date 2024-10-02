@@ -29,6 +29,16 @@ public class ResponsavelController {
         return ResponseEntity.status(HttpStatus.OK).body(responsavelService.getAllResponsavel());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Responsaveis> getResponsavelById(@PathVariable Long id) {
+        Responsaveis responsavel = responsavelService.getResponsavelById(id);
+        if (responsavel != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responsavel);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteResponsavel(@PathVariable Long id) {
         responsavelService.deleteResponsavel(id);

@@ -51,4 +51,8 @@ public class ResponsavelService {
     public List<Responsaveis> getAllResponsavel() {
         return responsaveisRepository.findAll();
     }
+
+    public Responsaveis getResponsavelById(Long id) {
+        return responsaveisRepository.findById(id).orElse(null);
+    }
 }
