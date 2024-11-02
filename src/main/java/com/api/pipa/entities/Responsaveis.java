@@ -1,5 +1,6 @@
 package com.api.pipa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,10 +38,12 @@ public class Responsaveis {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @Getter(onMethod = @__({@JsonIgnore}))
     private Users user;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY)
+    @Getter(onMethod = @__({@JsonIgnore}))
     private Set<Alunos> alunos = new HashSet<>();
 
 }

@@ -21,12 +21,10 @@ public class Salas {
 
     private String nome;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_aluno", referencedColumnName = "id")
+    @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Alunos> alunos =  new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_professor", referencedColumnName = "id")
+    @OneToMany(mappedBy = "sala", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Professores> professores =  new HashSet<>();
 
 }

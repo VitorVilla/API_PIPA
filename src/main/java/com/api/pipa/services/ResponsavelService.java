@@ -5,6 +5,7 @@ import com.api.pipa.entities.Enderecos;
 import com.api.pipa.entities.Responsaveis;
 import com.api.pipa.repositories.EnderecoRepository;
 import com.api.pipa.repositories.ResponsaveisRepository;
+import com.api.pipa.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class ResponsavelService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     @Transactional
     public Responsaveis saveResposavel(ResponsavelRecordDto responsavelRecordDto) {
@@ -27,6 +30,8 @@ public class ResponsavelService {
 
         responsavel.setNome(responsavelRecordDto.nome());
         responsavel.setCpf(responsavelRecordDto.cpf());
+        responsavel.setEmail(responsavelRecordDto.email());
+        responsavel.setSenha(responsavelRecordDto.senha());
 
         Enderecos endereco =  new Enderecos();
 
@@ -38,6 +43,7 @@ public class ResponsavelService {
 
         responsavel.setEndereco(endereco);
 
+        responsavel.setUser(usersRepository.findById(responsavelRecordDto.id_usuario()).get());
 
         return responsaveisRepository.save(responsavel);
 

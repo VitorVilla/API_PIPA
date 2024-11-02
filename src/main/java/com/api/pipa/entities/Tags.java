@@ -1,5 +1,6 @@
 package com.api.pipa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,6 @@ public class Tags {
     private String titulo;
 
     @ManyToMany (mappedBy = "tags", fetch = FetchType.LAZY)
+    @Getter(onMethod = @__({@JsonIgnore}))
     private Set<Posts> posts = new HashSet<>();
 }

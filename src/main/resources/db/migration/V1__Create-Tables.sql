@@ -9,6 +9,12 @@ CREATE TABLE users
     is_admin       BOOLEAN DEFAULT false
 );
 
+CREATE TABLE salas
+(
+    id   BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE professores
 (
     id         BIGSERIAL PRIMARY KEY,
@@ -16,7 +22,9 @@ CREATE TABLE professores
     email      VARCHAR(100) NOT NULL UNIQUE,
     senha      VARCHAR(255) NOT NULL,
     id_usuario INT,
+    sala_id    BIGINT,
 
+    CONSTRAINT fk_sala FOREIGN KEY (sala_id) REFERENCES salas (id),
     CONSTRAINT fk_usuario_professor FOREIGN KEY (id_usuario) REFERENCES users (id)
 );
 
@@ -49,19 +57,10 @@ CREATE TABLE alunos
     nome           VARCHAR(100) NOT NULL,
     cpf            VARCHAR(11)  NOT NULL UNIQUE,
     responsavel_id BIGINT       NOT NULL,
+    sala_id        BIGINT       NOT NULL,
 
+    CONSTRAINT fk_sala FOREIGN KEY (sala_id) REFERENCES salas (id),
     CONSTRAINT fk_responsavel FOREIGN KEY (responsavel_id) REFERENCES responsaveis (id)
-);
-
-CREATE TABLE salas
-(
-    id           BIGSERIAL PRIMARY KEY,
-    nome         VARCHAR(100) NOT NULL,
-    id_aluno     BIGINT,
-    id_professor BIGINT,
-
-    CONSTRAINT fk_alunos FOREIGN KEY (id_aluno) REFERENCES alunos (id),
-    CONSTRAINT fk_professores FOREIGN KEY (id_professor) REFERENCES professores (id)
 );
 
 CREATE TABLE tags

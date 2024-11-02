@@ -20,5 +20,5 @@ public record ControleDiarioRecordDto(Long id,
                                       Time horario,
                                       String dose,
                                       double febre,
-                                      Alunos aluno) {
+                                      Long aluno_id) {
 }

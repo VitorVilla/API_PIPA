@@ -2,10 +2,7 @@ package com.api.pipa.services;
 
 import com.api.pipa.dtos.UserRecordDto;
 import com.api.pipa.entities.*;
-import com.api.pipa.repositories.AdminsRepository;
-import com.api.pipa.repositories.ProfessoresRepository;
-import com.api.pipa.repositories.ResponsaveisRepository;
-import com.api.pipa.repositories.UsersRepository;
+import com.api.pipa.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +22,7 @@ public class UserService {
     private AdminsRepository adminsRepository;
 
     @Transactional
-    public Users saveUser(UserRecordDto userRecordDto) {
+    public Users saveUser(UserRecordDto userRecordDto) throws Exception {
 
         Users user = new Users();
         user.setSenha(userRecordDto.senha());
@@ -44,9 +41,7 @@ public class UserService {
             adminsRepository.save(admin);
 
             user.setAdmin(true);
-        }
-
-        if (userRecordDto.isProfessor()){
+        } else if (userRecordDto.isProfessor()){
 
             Professores professor = new Professores();
             professor.setEmail(userRecordDto.email());
@@ -57,9 +52,7 @@ public class UserService {
             professoresRepository.save(professor);
 
             user.setProfessor(true);
-        }
-
-        if (userRecordDto.isResponsavel()) {
+        } else if (userRecordDto.isResponsavel()) {
             Responsaveis responsavel = new Responsaveis();
             responsavel.setNome(userRecordDto.nome());
             responsavel.setCpf(userRecordDto.cpf());
@@ -78,6 +71,9 @@ public class UserService {
             responsaveisRepository.save(responsavel);
 
             user.setResponsavel(true);
+        } else {
+
+            throw new Exception("Nenhum tipo de usuario marcado");
         }
 
         return usersRepository.save(user);

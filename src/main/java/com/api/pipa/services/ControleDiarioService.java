@@ -1,8 +1,8 @@
 package com.api.pipa.services;
 
 import com.api.pipa.dtos.ControleDiarioRecordDto;
-import com.api.pipa.entities.Categorias;
 import com.api.pipa.entities.ControlesDiarios;
+import com.api.pipa.repositories.AlunosRepository;
 import com.api.pipa.repositories.ControlesDiariosRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,11 @@ import java.util.List;
 public class ControleDiarioService {
 
     private final ControlesDiariosRepository controlesDiariosRepository;
+    private final AlunosRepository alunosRepository;
 
-    public ControleDiarioService(ControlesDiariosRepository controlesDiariosRepository) {
+    public ControleDiarioService(ControlesDiariosRepository controlesDiariosRepository, AlunosRepository alunosRepository) {
         this.controlesDiariosRepository = controlesDiariosRepository;
+        this.alunosRepository = alunosRepository;
     }
 
     @Transactional
@@ -37,7 +39,7 @@ public class ControleDiarioService {
         controlesDiario.setHorario(controleDiarioRecordDto.horario());
         controlesDiario.setDose(controleDiarioRecordDto.dose());
         controlesDiario.setFebre(controleDiarioRecordDto.febre());
-        controlesDiario.setAluno(controleDiarioRecordDto.aluno());
+        controlesDiario.setAluno(alunosRepository.findById(controleDiarioRecordDto.aluno_id()).get());
 
         return controlesDiariosRepository.save(controlesDiario);
     }

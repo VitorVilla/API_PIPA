@@ -1,5 +1,6 @@
 package com.api.pipa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,12 @@ public class Professores {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @Getter(onMethod = @__({@JsonIgnore}))
     private Users user;
+
+    @ManyToOne
+    @JoinColumn(name = "sala_id")
+    @Getter(onMethod = @__({@JsonIgnore}))
+    private Salas sala;
 
 }
