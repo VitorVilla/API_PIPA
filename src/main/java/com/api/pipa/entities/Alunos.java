@@ -1,5 +1,6 @@
 package com.api.pipa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,9 +24,16 @@ public class Alunos {
     private String cpf;
 
     @ManyToOne
+    @Getter(onMethod = @__({@JsonIgnore}))
     Responsaveis responsavel;
 
     @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
+    @Getter(onMethod = @__({@JsonIgnore}))
     private Set<ControlesDiarios> controlesDiarios =  new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "sala_id")
+    @Getter(onMethod = @__({@JsonIgnore}))
+    private Salas sala;
 
 }

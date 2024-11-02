@@ -30,6 +30,17 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.getAllCategorias());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Categorias> getCategoriaById(@PathVariable Long id) {
+        Categorias categoria = categoriaService.getCategoriaById(id);
+        if (categoria != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(categoria);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategoria(@PathVariable Long id) {
         categoriaService.deleteCategoria(id);

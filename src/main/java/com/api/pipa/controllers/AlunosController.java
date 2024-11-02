@@ -29,6 +29,26 @@ public class AlunosController {
         return ResponseEntity.status(HttpStatus.OK).body(alunoService.getAllAlunos());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Alunos> updateAluno(@PathVariable Long id, @RequestBody @Valid AlunoRecordDto alunoRecordDto) {
+        Alunos aluno = alunoService.updateAluno(id, alunoRecordDto);
+        if (aluno != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(aluno);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Alunos> getAlunoById(@PathVariable Long id) {
+        Alunos aluno = alunoService.getAluno(id);
+        if (aluno != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(aluno);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAluno(@PathVariable Long id) {
         alunoService.deleteAluno(id);

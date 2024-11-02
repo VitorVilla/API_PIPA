@@ -29,8 +29,6 @@ public class SalaService {
         Salas sala = new Salas();
 
         sala.setNome(salaRecordDto.nome());
-        sala.setAlunos(alunosRepository.findAllById(salaRecordDto.id_aluno()).stream().collect(Collectors.toSet()));
-        sala.setProfessores(professoresRepository.findAllById(salaRecordDto.id_professor()).stream().collect(Collectors.toSet()));
 
         return salasRepository.save(sala);
     }
@@ -44,4 +42,7 @@ public class SalaService {
         return salasRepository.findAll();
     }
 
+    public Salas getSalaById(Long id) {
+        return salasRepository.findById(id).orElse(null);
+    }
 }

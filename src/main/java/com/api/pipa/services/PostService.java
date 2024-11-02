@@ -55,12 +55,16 @@ public class PostService {
     }
 
     @Transactional
-    public void deletePost(Long id){
+    public void deletePost(Long id) {
         postsRepository.deleteById(id);
     }
 
     public List<Posts> getAllPost() {
         return postsRepository.findAll();
+    }
+
+    public Posts getPostById(Long id) {
+        return postsRepository.findById(id).orElse(null);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.api.pipa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Posts {
     private String descricao;
 
     @ManyToMany
+    @Getter(onMethod = @__({@JsonIgnore}))
     @JoinTable(
             name = "post_imagens",
             joinColumns = @JoinColumn (name = "post_id"),
@@ -30,10 +32,12 @@ public class Posts {
     private Set<Imagens> imagens =  new HashSet<>();
 
     @ManyToOne
+    @Getter(onMethod = @__({@JsonIgnore}))
     @JoinColumn(name = "categoria_id")
     Categorias categoria;
 
     @ManyToMany
+    @Getter(onMethod = @__({@JsonIgnore}))
     @JoinTable(
             name = "post_tags",
             joinColumns = @JoinColumn (name = "post_id"),

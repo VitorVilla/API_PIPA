@@ -27,6 +27,16 @@ public class SalasController {
         return ResponseEntity.status(HttpStatus.OK).body(salaService.getAllSala());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Salas> getSalaById(@PathVariable Long id) {
+        Salas sala = salaService.getSalaById(id);
+        if (sala != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(sala);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSala(@PathVariable Long id) {
         salaService.deleteSala(id);

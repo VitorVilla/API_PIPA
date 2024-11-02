@@ -29,6 +29,16 @@ public class TagController {
         return ResponseEntity.status(HttpStatus.OK).body(tagService.getAllTag());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Tags> getTagById(@PathVariable Long id) {
+        Tags tag = tagService.getTagById(id);
+        if (tag != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(tag);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTag(@PathVariable Long id) {
         tagService.deleteTag(id);
